@@ -58,14 +58,14 @@ test = [
     "async-asgi-testclient ~= 1.4.4",
     "asyncmock ~= 0.4.2",
     "coverage[toml] ~= 6.2",
-    "pytz ~= 2022.1",
+    "pytz ~= 2023.3",
+    "types-pytz ~= 2023.3.0.0",
     "darglint ~= 1.8.1",
     "uvicorn ~= 0.17.0",
     "fastapi >=0.100.0-beta2",
     "requests ~= 2.24.0",
     "typer ~= 0.4.1",
     "semver ~= 2.13.0",
-    "types-pytz ~= 2022.1.1",
 ]
 doc = [
     "pydocstyle[toml] ~= 6.1.1",
