@@ -92,7 +92,7 @@ tasks:
 
   setup:deps-setup:
     cmds:
-      - flit install --deps=all
+      - flit install --deps=all --python python
     sources:
       - pyproject.toml
 
