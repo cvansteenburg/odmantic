@@ -1,6 +1,6 @@
 # Engine
 
-This engine documentation present how to work with both the Sync ([SyncEngine][odmantic.engine.SyncEngine]) and the Async ([AIOEngine][odmantic.engine.AIOEngine]) engines. The methods available for both are very close but the main difference is that the Async engine exposes coroutines instead of functions for the Sync engine.
+This engine documentation presents how to work with both the Sync ([SyncEngine][odmantic.engine.SyncEngine]) and the Async ([AIOEngine][odmantic.engine.AIOEngine]) engines. The methods available for both are very close but the main difference is that the Async engine exposes coroutines instead of functions for the Sync engine.
 
 ## Creating the engine
 
@@ -80,7 +80,7 @@ There are two ways of persisting instances to the database (i.e creating new doc
 As with regular MongoDB driver, you can use the
 `engine.find_one` method to get at most one
 instance of a specific Model. This method will either return an instance matching the
-specified criteriums or `None` if no instances have been found.
+specified criteria or `None` if no instances have been found.
 
 {{ async_sync_snippet("engine", "fetch_find_one.py", hl_lines="11 15-17") }}
 
@@ -112,7 +112,7 @@ Those cursors can mainly be used in two different ways:
 
 
 !!! tip "Ordering instances"
-    The `sort` parameter allows to order the query in ascending or descending order on
+    The `sort` parameter allows you to order the query in ascending or descending order on
     a single or multiple fields.
     ```python
     engine.find(Player, sort=(Player.name, Player.game.desc()))
@@ -128,7 +128,7 @@ to gather all the documents from the database before processing them.
 
 !!! note "Pagination"
     When using [AIOEngine.find][odmantic.engine.AIOEngine.find] or [SyncEngine.find][odmantic.engine.SyncEngine.find]
-    you can as well use the `skip` and `limit` keyword arguments , respectively to skip
+    you can as well use the `skip` and `limit` keyword arguments respectively to skip
     a specified number of instances and to limit the number of fetched instances.
 
 !!! tip "Referenced instances"
@@ -136,9 +136,9 @@ to gather all the documents from the database before processing them.
     be recursively resolved as well by design.
 
 !!! info "Passing the model class to `find` and `find_one`"
-    When using the method to retrieve instances from the database, you have to specify
-    the Model you want to query on as the first positional parameter. Internally, this
-    enables ODMantic to properly type the results.
+    When using `find` or `find_one` methods to retrieve instances from the database,
+    you have to specify the Model you want to query on as the first positional
+    parameter. Internally, this enables ODMantic to properly type the results.
 
 ### Count instances
 
@@ -236,8 +236,8 @@ instance using the [Model.copy][odmantic.model._BaseODMModel.copy] method.
     ```
 
 !!! danger "Update data used with the copy"
-    The data updated by the copy method is not validated: you should **absolutely**
-    trust this data.
+    The data updated by the `Model.copy` method is not validated: you should be sure you
+    **absolutely** trust the data before using the `Model.copy` method.
 
 
 
@@ -245,7 +245,7 @@ instance using the [Model.copy][odmantic.model._BaseODMModel.copy] method.
 
 ### Delete a single instance
 
-You can delete instance by passing them to the `engine.delete` method.
+You can delete instances by passing them to the `engine.delete` method.
 
 {{ async_sync_snippet("engine", "delete.py", hl_lines="14") }}
 
@@ -268,7 +268,7 @@ instance by passing `just_one`.
 
 ### Using a Session
 
-!!! Tip "Why are sessions needed ?"
+!!! Tip "Why are sessions needed?"
     A session is a way to
     guarantee that the data you read is consistent with the data you write.
     This is especially useful when you need to perform multiple operations on the
@@ -279,7 +279,7 @@ instance by passing `just_one`.
 You can create a session by using the `engine.session` method. This method will return
 either a [SyncSession][odmantic.session.SyncSession] or an
 [AIOSession][odmantic.session.AIOSession] object, depending on the type of engine used.
-Those session objects are context manager and can be used along with the `with` or the
+Those session objects are context managers and can be used along with the `with` or the
 `async with` keywords. Once the context is entered the `session` object exposes the same
 database operation methods as the related `engine` object but execute each operation in
 the session context.
@@ -298,21 +298,21 @@ the session context.
 
 ### Using a Transaction
 
-!!! Tip "Why are transactions needed ?"
+!!! Tip "Why are transactions needed?"
     A transaction is a mechanism that allows you to execute multiple operations in a
     single atomic operation. This is useful when you want to ensure that a set of
     operations is atomicly performed on a specific document.
 
 !!! Error "MongoDB transaction support"
-    Transactions are only supported in a replica sets (Mongo 4.0+) or sharded clusters
+    Transactions are only supported in replica sets (Mongo 4.0+) or sharded clusters
     with replication enabled (Mongo 4.2+), if you use them in a standalone MongoDB
     instance an error will be raised.
 
 You can create a transaction directly from the engine by using the `engine.transaction`
-method. This methods will either return a
+method. This method will either return a
 [SyncTransaction][odmantic.session.SyncTransaction] or an
 [AIOTransaction][odmantic.session.AIOTransaction] object. As for sessions, transaction
-objects exposes the same database operation methods as the related `engine` object but
+objects expose the same database operation methods as the related `engine` object but
 execute each operation in a transactional context.
 
 In order to terminate a transaction you must either call the `commit` method to persist
