@@ -270,7 +270,7 @@ mongo --eval "db.publisher.find({name: 'Lulu'})"
 
 Output:
 
-```json hl_lines="5"
+```js hl_lines="5"
 connecting to: mongodb://127.0.0.1:27017
 {
   "_id": ObjectId("5f67b331514d6855bc5c54cb"),
@@ -280,9 +280,9 @@ connecting to: mongodb://127.0.0.1:27017
 }
 ```
 
-The document have been successfully updated !
+The document has been successfully updated!
 
-Now, what if we would like to change the foundation date with an invalid one (before 1440) ?
+Now, what if we would like to change the foundation date with an invalid one (before 1440)?
 
 ```python
 lulu.founded = 1000
@@ -293,13 +293,13 @@ lulu.founded = 1000
 ```
 
 This will raise an exception as it's not matching the model definition. The raised
-exception is actually a `ValidationError` created by from <a
+exception is actually a `ValidationError` raised by <a
 href="https://pydantic-docs.helpmanual.io/usage/models/#error-handling"
 target="_blank">pydantic</a>.
 
 ### Next steps
 
-If you already have experience with Pydantic and FastAPI, the [Usage with FastAPI](https://art049.github.io/odmantic/usage_fastapi/) example sould be interesting for you to get kickstarted.
+If you already have experience with Pydantic and FastAPI, the [Usage with FastAPI](https://art049.github.io/odmantic/usage_fastapi/) example should help you get kick-started.
 
 Otherwise, to get started on more advanced practices like relations and building more
 advanced queries, you can directly check the other sections of the
