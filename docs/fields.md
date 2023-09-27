@@ -2,8 +2,8 @@
 ## The `id` field
 
 The [`ObjectId` data type](https://docs.mongodb.com/manual/reference/method/ObjectId/){:target=blank_}
- is the default primary key type used by MongoDB. An `ObjectId` comes with many
- information embedded into it (timestamp, machine identifier, ...). Since by default
+ is the default primary key type used by MongoDB. An `ObjectId` contains a variety of
+ of embedded information (timestamp, machine identifier, ...). Since by default
  MongoDB will create a field `_id` containing an `ObjectId` primary key, ODMantic will
  bind it automatically to an implicit field named `id`.
 
@@ -18,7 +18,7 @@ The [`ObjectId` data type](https://docs.mongodb.com/manual/reference/method/Obje
     the database and the ones only created locally.
 
 
-Even if this behavior is convenient, it is still possible to [define custom primary
+While this behavior is convenient, it is still possible to [define custom primary
 keys](#primary-key).
 
 
@@ -61,7 +61,7 @@ To define choices, it's possible to use the standard `enum` classes:
 ```
 
 !!! abstract "Resulting documents in the collection `tree` after execution"
-    ```json hl_lines="7"
+    ```js hl_lines="7"
     { "_id" : ObjectId("5f818f2dd5708527282c49b6"), "kind" : "big", "name" : "Sequoia" }
     { "_id" : ObjectId("5f818f2dd5708527282c49b7"), "kind" : "small", "name" : "Spruce" }
     ```
@@ -113,7 +113,7 @@ If you try to use a value not present in the allowed choices, a [ValidationError
 !!! tip "Performance tip"
     Whenever possible, try to avoid mutable container types (`List`, `Set`, ...) and
     prefer their Immutable alternatives (`Tuple`, `FrozenSet`, ...). This will allow
-    ODMantic to speedup database writes by only saving the modified container fields.
+    ODMantic to speed up database writes by only saving the modified container fields.
 
 ### `BSON` types integration
 
@@ -222,7 +222,6 @@ possible to override this naming policy by using the `key_name` argument in the
 {{ async_sync_snippet("fields", "custom_key_name.py", hl_lines="5") }}
 
 !!! abstract "Resulting documents in the collection `player` after execution"
-
     ```json hl_lines="3"
     {
       "_id": ObjectId("5ed50fcad11d1975aa3d7a28"),
@@ -276,7 +275,7 @@ More details about index creation can be found in the
 
 ### Unique fields
 
-In the same way, you can define unique constrains on a single field by using the
+In the same way, you can define unique constraints on a single field by using the
 `unique` argument of the [Field][odmantic.field.Field] descriptor. This will ensure that
 values of this fields are unique among all the instances saved in the database.
 
@@ -318,7 +317,7 @@ validation features provided by pydantic are available:
 ## Custom field types
 Exactly in the same way pydantic allows it, it's possible to define custom field types as well with ODMantic ([pydantic: Custom data types](https://pydantic-docs.helpmanual.io/usage/types/#custom-data-types){:target=blank_}).
 
-Sometimes, it might be required to customize as well the field BSON serialization. In
+Sometimes, it might be required to customize the field BSON serialization as well. In
 order to do this, the field class will have to implement the `__bson__` class method.
 
 ```python linenums="1" hl_lines="13-14 21-26"
@@ -330,7 +329,7 @@ The encoding is handled in the `__bson__` class method. On top of this, we handl
 decoding by attempting to decode `bytes` object in the `validate` method.
 
 !!! abstract "Resulting documents in the collection `example` after execution"
-    ```json hl_lines="3"
+    ```js hl_lines="3"
     {
       "_id" : ObjectId("5f81fa5e8adaf4bf33f05035"),
       "field" : BinData(0,"aGVsbG8gd29ybGQ=")
@@ -338,6 +337,6 @@ decoding by attempting to decode `bytes` object in the `validate` method.
     ```
 
 !!! warning
-    When using custom bson serialization, it's important to handle as well the data
+    When using custom bson serialization, it's important to handle the data
     validation for data retrieved from Mongo. In the previous example it's done by
-    handling `bytes` objects in the validate method.
+    handling the `bytes` objects in the validate method.
