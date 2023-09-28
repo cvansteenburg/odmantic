@@ -1,4 +1,4 @@
-FROM fkrull/multi-python
+FROM ghcr.io/fkrull/docker-multi-python:focal
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
