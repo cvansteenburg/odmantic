@@ -111,13 +111,13 @@ async def create_tree(tree: Tree):
     return tree
 ```
 First, the request body will be parsed to a `Tree` object (this is done by
-specifying the argument `tree: Tree`). This mean that the model validation will be
+specifying the argument `tree: Tree`). This means that model validation will be
 performed. Once the model is parsed to a Tree instance, we persist it to the
 database and we return it.
 
 
 ???+tip "Command line tool for interacting with JSON based HTTP APIs"
-    To interact with the API from the command line, we recommend to use the
+    To interact with the API from the command line, we recommend using the
     [HTTPie](https://httpie.org/){:target=blank_} CLI.
 
     The next examples are still provided with the `curl` syntax since the Swagger
@@ -288,7 +288,7 @@ mandatory but it is strongly advised as it helps FastAPI to generate the documen
 
 To get the trees stored in the database, we use the
 [AIOEngine.find][odmantic.engine.AIOEngine.find] method in its `awaitable` form ([more
-details](engine.md#fetch-multiple-instances)), this gives us directly the list of Tree
+details](engine.md#fetch-multiple-instances)), this gives us the list of Tree
 instances that we can return directly:
 
 ```python
@@ -416,7 +416,7 @@ async def count_trees():
 
 ```python
 @app.get("/trees/{id}", response_model=Tree)
-async def get_tree_by_id(id: ObjectId, ):
+async def get_tree_by_id(id: ObjectId):
     tree = await engine.find_one(Tree, Tree.id == id)
     if tree is None:
         raise HTTPException(404)
@@ -446,7 +446,7 @@ endpoint is called, FastAPI will try to validate this query parameter, thus infe
     ```
 
 With this `ObjectId`, we build a query that will filter only the instances having this
-exactly same `id`:
+same `id`:
 ```python
 Tree.id == id
 ```
@@ -460,7 +460,7 @@ a `404 Not Found` error:
 if tree is None:
     raise HTTPException(404)
 ```
-Otherwise, we found the requested instance. We can return it !
+Otherwise, we found the requested instance. We can return it!
 ```python
 return tree
 ```
@@ -675,8 +675,8 @@ as a path parameter and the `TreePatchSchema` as the request body parameter.
 After all the parameters have been validated properly and the appropriate instance have
 been gathered, we can apply the modifications to the local instance using the
 [Model.update][odmantic.model._BaseODMModel.update] method. By default, the update
-method will replace each field values in the instance with the ones explicitely set in
-the patch object. Thus, the fields containing the None default values are not gonna be
+method will replace each of the field values in the instance with the ones explicitely set in
+the `PATCH` object. Thus, the fields containing the `None` default values are not
 changed in the instance.
 
 
